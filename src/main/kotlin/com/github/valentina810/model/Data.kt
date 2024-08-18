@@ -1,4 +1,8 @@
 package com.github.valentina810.model
 
-class data {
-}
+import com.github.valentina810.CachedBodyHttpServletRequest
+
+data class Data(
+    val cachedBodyHttpServletRequest: CachedBodyHttpServletRequest?,
+    val curl: String
+)
