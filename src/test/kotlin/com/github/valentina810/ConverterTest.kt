@@ -50,7 +50,7 @@ class ConverterTest {
             { assertNotNull(result.curl) },
             {
                 assertEquals(
-                    "curl -X POST 'http://example.com/test' --data 'test body' # IP: 127.0.0.1",
+                    "curl -X POST 'http://example.com/test1' --data 'test body' # IP: 127.0.0.1",
                     result.curl
                 )
             }
