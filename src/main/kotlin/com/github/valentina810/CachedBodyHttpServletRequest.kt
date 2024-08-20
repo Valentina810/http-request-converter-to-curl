@@ -1,5 +1,6 @@
 package com.github.valentina810
 
+import com.github.valentina810.exception.CreateCashedBodyException
 import jakarta.servlet.ReadListener
 import jakarta.servlet.ServletInputStream
 import jakarta.servlet.http.HttpServletRequest
@@ -16,43 +17,44 @@ class CachedBodyHttpServletRequest(request: HttpServletRequest) : HttpServletReq
         this.cachedBody = cacheRequestBody(request)
     }
 
-    @Throws(IOException::class)
     private fun cacheRequestBody(request: HttpServletRequest): ByteArray {
-        request.getInputStream().use { requestInputStream ->
-            return requestInputStream.readAllBytes()
+        try {
+            request.inputStream.use { requestInputStream ->
+                return requestInputStream.readAllBytes()
+            }
+        } catch (ex: NullPointerException) {
+            throw NullPointerException("Входной запрос не может быть null!")
+        } catch (e: IOException) {
+            throw CreateCashedBodyException("Ошибка при создании CachedBodyHttpServletRequest: $e")
         }
     }
 
-    val inputStream: ServletInputStream
-        get() = CachedBodyServletInputStream(
+    override fun getInputStream(): ServletInputStream {
+        return CachedBodyServletInputStream(
             this.cachedBody
         )
+    }
 
-    val reader: BufferedReader
-        get() = BufferedReader(InputStreamReader(ByteArrayInputStream(this.cachedBody)))
+    override fun getReader(): BufferedReader {
+        return BufferedReader(InputStreamReader(ByteArrayInputStream(this.cachedBody)))
+    }
 
     private class CachedBodyServletInputStream(cachedBody: ByteArray?) : ServletInputStream() {
         private val byteArrayInputStream = ByteArrayInputStream(cachedBody)
 
-        val isFinished: Boolean
-            get() = byteArrayInputStream.available() == 0
+        override fun isFinished(): Boolean {
+            return byteArrayInputStream.available() == 0
+        }
 
-        val isReady: Boolean
-            get() = true
+        override fun isReady(): Boolean {
+            return true
+        }
 
-        override fun setReadListener(readListener: ReadListener?) {
+        override fun setReadListener(readListener: ReadListener) {
         }
 
         override fun read(): Int {
             return byteArrayInputStream.read()
-        }
-
-        override fun isFinished(): Boolean {
-            TODO("Not yet implemented")
-        }
-
-        override fun isReady(): Boolean {
-            TODO("Not yet implemented")
         }
     }
 }

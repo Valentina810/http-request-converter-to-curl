@@ -2,7 +2,7 @@ package com.github.valentina810
 
 import jakarta.servlet.http.HttpServletRequest
 import java.io.IOException
-import java.util.*
+import java.util.Collections.list
 import java.util.stream.Collectors
 
 object CurlCommandBuilder {
@@ -27,7 +27,7 @@ object CurlCommandBuilder {
             request.reader.use { reader ->
                 val body =
                     reader.lines().collect(Collectors.joining(System.lineSeparator()))
-                if (!body.isEmpty()) {
+                if (body.isNotEmpty()) {
                     curlBody.append(data).append(body).append("'")
                 }
             }
@@ -38,14 +38,12 @@ object CurlCommandBuilder {
     }
 
     private fun getHeaders(request: HttpServletRequest): String {
-        return Collections.list(request.headerNames)
-            .stream()
-            .flatMap { headerName: String ->
-                Collections.list(request.getHeaders(headerName))
-                    .stream()
-                    .map { headerValue: String -> " -H '$headerName: $headerValue'" }
-            }
-            .collect(Collectors.joining(" "))
+        return request.headerNames?.let { headerNames ->
+            list(headerNames)
+                .joinToString(" ") { headerName ->
+                    " -H '$headerName: ${request.getHeader(headerName)}'"
+                }
+        } ?: ""
     }
 
     private fun getQueryParams(request: HttpServletRequest): String {
