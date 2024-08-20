@@ -1,6 +1,8 @@
 package com.github.valentina810
 
 import com.github.valentina810.exception.CreateCashedBodyException
+import jakarta.servlet.ReadListener
+import jakarta.servlet.ServletInputStream
 import jakarta.servlet.http.HttpServletRequest
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -18,10 +20,10 @@ import java.io.InputStreamReader
 class ConverterTest {
 
     class ServletInputStreamWrapper(private val inputStream: ByteArrayInputStream) :
-        jakarta.servlet.ServletInputStream() {
+        ServletInputStream() {
         override fun isFinished(): Boolean = inputStream.available() == 0
         override fun isReady(): Boolean = true
-        override fun setReadListener(readListener: jakarta.servlet.ReadListener?) {}
+        override fun setReadListener(readListener: ReadListener?) {}
         override fun read(): Int = inputStream.read()
     }
 
@@ -50,7 +52,7 @@ class ConverterTest {
             { assertNotNull(result.curl) },
             {
                 assertEquals(
-                    "curl -X POST 'http://example.com/test1' --data 'test body' # IP: 127.0.0.1",
+                    "curl -X POST 'http://example.com/test' --data 'test body' # IP: 127.0.0.1",
                     result.curl
                 )
             }
