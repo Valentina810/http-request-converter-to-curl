@@ -1,9 +1,25 @@
 plugins {
     kotlin("jvm") version "1.9.23"
+    `maven-publish`
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "com.github.valentina810"
+version = "1.0.0"
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
+            groupId = "com.github.valentina810"
+            artifactId = "http-request-converter-to-curl"
+            version = "1.0.0"
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
 
 repositories {
     mavenCentral()

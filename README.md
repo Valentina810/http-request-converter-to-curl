@@ -8,25 +8,44 @@
 - Кэширование входящего запроса для дальнейшего использования.
 
 ## Установка
-
-### С помощью Gradle
-
-Добавьте зависимость в файл `build.gradle.kts` вашего проекта:
-
+Проще всего скачать [архив](https://github.com/Valentina810/http-request-converter-to-curl/releases/tag/1.0.0) в ваш проект в папку libs, распаковать его и подключить так:
+```
+<dependency>
+    <groupId>com.github.valentina810</groupId>
+    <artifactId>http-request-converter-to-curl</artifactId>
+    <version>1.0.0</version>
+    <scope>system</scope>
+    <systemPath>${project.basedir}/lib/http-request-converter-to-curl-1.0.0.jar</systemPath>
+</dependency>
+```
+или
 ```
 dependencies {
-    implementation("com.github.valentina810:http-request-converter-to-curl:1.0.0")
+    implementation("com.github.valentina810:http-request-converter-to-curl:1.0.0") {
+                artifact {
+                    file = file("libs/http-request-converter-to-curl-1.0.0.jar")
+                }
+    }
 }
 ```
 
-### С помощью Maven
-Добавьте следующую зависимость в файл pom.xml вашего проекта:
+### Можно добавлять как зависимость, но 
+нужно будет настроить [учетные данные для доступа к GitHub Packages](https://docs.github.com/ru/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry)   
+Для maven:
 ```
 <dependency>
     <groupId>com.github.valentina810</groupId>
     <artifactId>http-request-converter-to-curl</artifactId>
     <version>1.0.0</version>
 </dependency>
+```
+
+Для gradle:
+
+```
+dependencies {
+    implementation("com.github.valentina810:http-request-converter-to-curl:1.0.0")
+}
 ```
 ### Использование
 Выходными данными основного метода класса Converter
@@ -49,9 +68,21 @@ val curl: String                                                 // запрос
 )
 ```
 Ниже приведён пример использования библиотеки:
-```kotlin
-val data = Converter().convert(httpServletRequest)
-println(data.curl)
+```java
+public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) {
+    if (servletRequest instanceof HttpServletRequest request && servletResponse instanceof HttpServletResponse response) {
+        Data convert = new Converter().convert(request);
+        log.info("Входящий запрос {}", convert.getCurl());
+        processRequest.accept(request, response);
+        if (!response.isCommitted()) {
+            try {
+                filterChain.doFilter(convert.getCachedBodyHttpServletRequest(), response);
+            } catch (IOException | ServletException e) {
+                LOG_ERROR.accept(e.getMessage());
+            }
+        } else log.info("Запрос не был обработан по причине отсутствия заголовка User-Agent с требуемым значением");
+    }
+}
 ```
 
 ### Зависимости

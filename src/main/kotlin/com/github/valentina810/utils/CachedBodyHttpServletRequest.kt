@@ -1,6 +1,6 @@
 package com.github.valentina810.utils
 
-import com.github.valentina810.exception.CreateCashedBodyException
+import com.github.valentina810.exception.CachedBodyCreationException
 import jakarta.servlet.ReadListener
 import jakarta.servlet.ServletInputStream
 import jakarta.servlet.http.HttpServletRequest
@@ -38,7 +38,7 @@ class CachedBodyHttpServletRequest(request: HttpServletRequest) : HttpServletReq
         } catch (ex: NullPointerException) {
             throw NullPointerException("The input request cannot be null!")
         } catch (e: IOException) {
-            throw CreateCashedBodyException("Error creating CachedBodyHttpServletRequest: $e")
+            throw CachedBodyCreationException("Error creating CachedBodyHttpServletRequest: $e")
         }
     }
 

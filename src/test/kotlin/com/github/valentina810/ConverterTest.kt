@@ -1,6 +1,6 @@
 package com.github.valentina810
 
-import com.github.valentina810.exception.CreateCashedBodyException
+import com.github.valentina810.exception.CachedBodyCreationException
 import jakarta.servlet.ReadListener
 import jakarta.servlet.ServletInputStream
 import jakarta.servlet.http.HttpServletRequest
@@ -146,7 +146,7 @@ class ConverterTest {
     }
 
     @Test
-    fun `convert should throw CreateCashedBodyException when IOException occurs`() {
+    fun `convert should throw CachedBodyCreationException when IOException occurs`() {
         // Arrange
         val request = mock(HttpServletRequest::class.java)
         `when`(request.inputStream).thenThrow(IOException::class.java)
@@ -154,7 +154,7 @@ class ConverterTest {
         val converter = Converter()
 
         // Act & Assert
-        val exception = assertThrows<CreateCashedBodyException> {
+        val exception = assertThrows<CachedBodyCreationException> {
             converter.convert(request)
         }
         assertTrue(exception.message!!.contains("Error creating CachedBodyHttpServletRequest:"))

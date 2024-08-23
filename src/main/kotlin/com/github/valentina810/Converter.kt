@@ -1,6 +1,6 @@
 package com.github.valentina810
 
-import com.github.valentina810.exception.CreateCashedBodyException
+import com.github.valentina810.exception.CachedBodyCreationException
 import com.github.valentina810.utils.CachedBodyHttpServletRequest
 import com.github.valentina810.utils.Data
 import jakarta.servlet.http.HttpServletRequest
@@ -31,7 +31,7 @@ class Converter {
      * @param request The incoming `HttpServletRequest` to be converted. It must not be null.
      * @return A `Data` object containing the cached request and its cURL representation.
      * @throws NullPointerException If the provided request is null.
-     * @throws CreateCashedBodyException If an error occurs during the creation of the
+     * @throws CachedBodyCreationException If an error occurs during the creation of the
      *         `CachedBodyHttpServletRequest`.
      */
     fun convert(request: HttpServletRequest): Data {
