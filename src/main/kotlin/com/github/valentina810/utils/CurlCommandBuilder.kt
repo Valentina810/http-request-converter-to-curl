@@ -1,11 +1,11 @@
-package com.github.valentina810
+package com.github.valentina810.utils
 
 import jakarta.servlet.http.HttpServletRequest
 import java.io.IOException
 import java.util.Collections.list
 import java.util.stream.Collectors
 
-object CurlCommandBuilder {
+internal object CurlCommandBuilder {
     fun buildCurlCommand(request: HttpServletRequest): String {
         return StringBuilder()
             .append("curl -X ")

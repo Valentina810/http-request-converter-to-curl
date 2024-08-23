@@ -1,4 +1,4 @@
-package com.github.valentina810
+package com.github.valentina810.utils
 
 import com.github.valentina810.exception.CreateCashedBodyException
 import jakarta.servlet.ReadListener
@@ -21,6 +21,13 @@ class CachedBodyHttpServletRequest(request: HttpServletRequest) : HttpServletReq
     }
 
     /**
+     * Возвращает запрос в формате curl
+     */
+    fun getCurl(): String {
+        return CurlCommandBuilder.buildCurlCommand(this)
+    }
+
+    /**
      * Метод считывает весь входной поток запроса и сохраняет его в виде массива байт (ByteArray)
      */
     private fun cacheRequestBody(request: HttpServletRequest): ByteArray {
@@ -29,9 +36,9 @@ class CachedBodyHttpServletRequest(request: HttpServletRequest) : HttpServletReq
                 return requestInputStream.readAllBytes()
             }
         } catch (ex: NullPointerException) {
-            throw NullPointerException("Входной запрос не может быть null!")//#todo перевести сообщения эксепшенов на англ язык
+            throw NullPointerException("The input request cannot be null!")
         } catch (e: IOException) {
-            throw CreateCashedBodyException("Ошибка при создании CachedBodyHttpServletRequest: $e")
+            throw CreateCashedBodyException("Error creating CachedBodyHttpServletRequest: $e")
         }
     }
 
