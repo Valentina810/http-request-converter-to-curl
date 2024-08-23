@@ -142,7 +142,7 @@ class ConverterTest {
         val exception = assertThrows<NullPointerException> {
             converter.convert(request)
         }
-        assertEquals("Входной запрос не может быть null!", exception.message)
+        assertEquals("The input request cannot be null!", exception.message)
     }
 
     @Test
@@ -157,6 +157,6 @@ class ConverterTest {
         val exception = assertThrows<CreateCashedBodyException> {
             converter.convert(request)
         }
-        assertTrue(exception.message!!.contains("Ошибка при создании CachedBodyHttpServletRequest:"))
+        assertTrue(exception.message!!.contains("Error creating CachedBodyHttpServletRequest:"))
     }
 }
