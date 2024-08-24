@@ -1,4 +1,4 @@
-# http-request-converter-to-curl
+# library for converting HTTP requests to Curl
 
 `http-request-converter-to-curl` is a small Kotlin library that provides a method for converting incoming HTTP requests into cURL format with the ability to cache the request.
 
@@ -115,7 +115,7 @@ If you have any questions or suggestions, you can contact the author at: valenti
 
 ---
 
-# http-request-converter-to-curl
+# Библиотека для конвертертации HTTP-запросов в Curl
 
 `http-request-converter-to-curl` — это небольшая Kotlin-библиотека, которая предоставляет метод для преобразования входящего HTTP-запроса в формат cURL с возможностью кэширования запроса.
 
