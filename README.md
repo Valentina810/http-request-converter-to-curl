@@ -115,7 +115,7 @@ If you have any questions or suggestions, you can contact the author at: valenti
 
 ---
 
-# Библиотека для конвертертации HTTP-запросов в Curl
+# Библиотека для конвертации HTTP-запросов в Curl
 
 `http-request-converter-to-curl` — это небольшая Kotlin-библиотека, которая предоставляет метод для преобразования входящего HTTP-запроса в формат cURL с возможностью кэширования запроса.
 
