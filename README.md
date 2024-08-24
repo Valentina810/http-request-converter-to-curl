@@ -30,7 +30,7 @@ dependencies {
 ```
 
 ### Можно добавлять как зависимость, но 
-нужно будет настроить [учетные данные для доступа к GitHub Packages](https://github.com/Valentina810/how-to/blob/main/how-to-configure-connection-of-a-library-published-in-github-packages.md)   
+нужно будет настроить [учетные данные для доступа к GitHub Packages](https://github.com/Valentina810/how-to/blob/main/library-published-in-github-packages/how-to-configure-connection-of-a-library-published-in-github-packages.md)   
 Для maven:
 ```
 <dependency>
