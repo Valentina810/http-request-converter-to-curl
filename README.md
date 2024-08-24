@@ -15,7 +15,7 @@
     <artifactId>http-request-converter-to-curl</artifactId>
     <version>1.0.0</version>
     <scope>system</scope>
-    <systemPath>${project.basedir}/lib/http-request-converter-to-curl-1.0.0.jar</systemPath>
+    <systemPath>${project.basedir}/libs/http-request-converter-to-curl-1.0.0.jar</systemPath>
 </dependency>
 ```
 или
