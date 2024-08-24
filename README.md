@@ -1,4 +1,4 @@
-# library for converting HTTP requests to Curl
+# Library for converting HTTP requests to Curl
 
 `http-request-converter-to-curl` is a small Kotlin library that provides a method for converting incoming HTTP requests into cURL format with the ability to cache the request.
 
